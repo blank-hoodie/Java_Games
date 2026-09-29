@@ -1,8 +1,9 @@
 package Game.Hero.Moving.Fly;
 
-import Game.Hero.Point;
+import Game.Hero.Point.Point;
+import Game.Hero.Moving.MovingType;
 
-public class Fly  int dx, int dy, int dz MovingType {
+public class Fly implements MovingType {
     @Override
     public void move(Point position, int dx, int dy, int dz) {
         position.x += dx;

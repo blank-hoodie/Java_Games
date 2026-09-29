@@ -5,9 +5,8 @@ import Game.Hero.Moving.MovingType;
 
 public class Fly implements MovingType {
     @Override
-    public void move(Point position, int dx, int dy, int dz) {
-        position.x += dx;
-        position.y += dy;
-        position.z += dz;
+    public void move(Point position, int dx, int dy) {
+        position.x += dx * 3;
+        position.y += dy * 3;
     }
 }

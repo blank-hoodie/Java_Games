@@ -13,7 +13,7 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Способ движения: 1 - ходить, 2 - прыгать, 3 - летать");
-        System.out.println("Направление: w/a/s/d - по земле, up/down - высота");
+        System.out.println("Направление: w/a/s/d");
         System.out.println("q - выход");
 
         while (true) {
@@ -38,22 +38,16 @@ public class Game {
                     System.out.println("Герой теперь летает");
                     break;
                 case "w":
-                    hero.move(0, 1, 0);
+                    hero.move(0, 1);
                     break;
                 case "s":
-                    hero.move(0, -1, 0);
+                    hero.move(0, -1);
                     break;
                 case "a":
-                    hero.move(-1, 0, 0);
+                    hero.move(-1, 0);
                     break;
                 case "d":
-                    hero.move(1, 0, 0);
-                    break;
-                case "up":
-                    hero.move(0, 0, 1);
-                    break;
-                case "down":
-                    hero.move(0, 0, -1);
+                    hero.move(1, 0);
                     break;
                 default:
                     System.out.println("Неизвестная команда");

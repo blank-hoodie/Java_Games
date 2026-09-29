@@ -12,13 +12,11 @@ public class Hero {
         this.moving = moving;
     }
 
-    public void move(int dx, int dy, int dz) {
-        moving.move(position, dx, dy, dz);
+    public void move(int dx, int dy) {
+        moving.move(position, dx, dy);
     }
 
     public void printPosition() {
-        System.out.println("Позиция: x=" + position.x
-                + ", y=" + position.y
-                + ", z=" + position.z);
+        System.out.println("Позиция: x=" + position.x + ", y=" + position.y);
     }
 }

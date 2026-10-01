@@ -1,20 +1,17 @@
 package Game;
 
 import Game.Hero.Hero;
-import Game.Hero.Moving.Walk.Walk;
-import Game.Hero.Moving.Jump.Jump;
-import Game.Hero.Moving.Fly.Fly;
+import Game.Hero.Direction.Direction;
 
 import java.util.Scanner;
 
+// консольная версия игры
 public class Game {
     public void start() {
         Hero hero = new Hero();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Способ движения: 1 - ходить, 2 - прыгать, 3 - летать");
-        System.out.println("Направление: w/a/s/d");
-        System.out.println("q - выход");
+        System.out.println("w/a/s/d - идти, j - прыжок, f - шаг полёта, q - выход");
 
         while (true) {
             hero.printPosition();
@@ -25,29 +22,23 @@ public class Game {
                 case "q":
                     System.out.println("Игра окончена");
                     return;
-                case "1":
-                    hero.setMoving(new Walk());
-                    System.out.println("Герой теперь ходит");
-                    break;
-                case "2":
-                    hero.setMoving(new Jump());
-                    System.out.println("Герой теперь прыгает");
-                    break;
-                case "3":
-                    hero.setMoving(new Fly());
-                    System.out.println("Герой теперь летает");
-                    break;
                 case "w":
-                    hero.move(0, 1);
+                    hero.walk(Direction.UP);
                     break;
                 case "s":
-                    hero.move(0, -1);
+                    hero.walk(Direction.DOWN);
                     break;
                 case "a":
-                    hero.move(-1, 0);
+                    hero.walk(Direction.LEFT);
                     break;
                 case "d":
-                    hero.move(1, 0);
+                    hero.walk(Direction.RIGHT);
+                    break;
+                case "j":
+                    hero.jump();
+                    break;
+                case "f":
+                    hero.fly();
                     break;
                 default:
                     System.out.println("Неизвестная команда");

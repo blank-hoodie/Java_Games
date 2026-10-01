@@ -1,6 +1,7 @@
 package Game.Gui;
 
 import Game.Game;
+import Game.Enemy.Enemy;
 import Game.Hero.Hero;
 import Game.Hero.Direction.Direction;
 import Game.Level.Level;
@@ -22,12 +23,10 @@ public class GamePanel extends JPanel {
 
     private static final int CELL_SIZE = 20;
     private static final int HUD_HEIGHT = 24;     // полоска сверху для текста
-    private static final int FLY_EVERY_TICKS = 5;
 
     private final Game game = new Game();
 
     private boolean spaceHeld = false;
-    private int tick = 0;
     private Level shownLevel; // уровень, под который подогнан размер окна
 
     public GamePanel() {
@@ -85,10 +84,7 @@ public class GamePanel extends JPanel {
     }
 
     private void update() {
-        tick++;
-        if (tick % FLY_EVERY_TICKS == 0) {
-            game.flyStep();
-        }
+        game.update(); // вся игровая логика: полёт, враги, неуязвимость
         // уровни могут быть разного размера — подгоняем окно при смене уровня
         if (game.getLevel() != shownLevel) {
             fitToLevel();
@@ -111,6 +107,7 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawLevel(g);
+        drawEnemies(g);
         drawHero(g);
         drawHud(g);
     }
@@ -126,14 +123,26 @@ public class GamePanel extends JPanel {
         }
     }
 
+    private void drawEnemies(Graphics g) {
+        g.setColor(new Color(255, 0, 255));
+        for (Enemy enemy : game.getEnemies()) {
+            int px = enemy.position.x * CELL_SIZE;
+            int py = enemy.position.y * CELL_SIZE + HUD_HEIGHT;
+            g.fillOval(px + 2, py + 2, CELL_SIZE - 4, CELL_SIZE - 4); // враг — кружок
+        }
+    }
+
     private void drawHero(Graphics g) {
+        // после удара герой мигает: каждые 100 мс то виден, то нет
+        if (game.isInvulnerable() && (System.currentTimeMillis() / 100) % 2 == 0) {
+            return;
+        }
         Hero hero = game.getHero();
         int px = hero.position.x * CELL_SIZE;
         int py = hero.position.y * CELL_SIZE + HUD_HEIGHT;
 
-        // оранжевый на земле, фиолетовый в полёте
-        // (красный/синий/зелёный/жёлтый уже заняты клетками уровня)
-        g.setColor(game.isFlying() ? new Color(180, 0, 220) : new Color(255, 140, 0));
+        // оранжевый на земле, светло-голубой в полёте
+        g.setColor(game.isFlying() ? new Color(100, 200, 255) : new Color(255, 140, 0));
         g.fillRect(px, py, CELL_SIZE, CELL_SIZE);
 
         Direction f = hero.getFacing();

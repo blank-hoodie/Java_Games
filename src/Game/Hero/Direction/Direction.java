@@ -16,4 +16,14 @@ public enum Direction {
         this.dx = dx;
         this.dy = dy;
     }
+
+    // противоположное направление — нужно врагам, чтобы развернуться
+    public Direction opposite() {
+        return switch (this) {
+            case UP -> DOWN;
+            case DOWN -> UP;
+            case LEFT -> RIGHT;
+            case RIGHT -> LEFT;
+        };
+    }
 }

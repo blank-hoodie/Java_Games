@@ -14,6 +14,7 @@ public class Game {
 
         System.out.println("Способ движения: 1 - ходить, 2 - прыгать, 3 - летать");
         System.out.println("Направление: w/a/s/d");
+        System.out.println("e - выстрелить из лука");
         System.out.println("q - выход");
 
         while (true) {
@@ -48,6 +49,9 @@ public class Game {
                     break;
                 case "d":
                     hero.move(1, 0);
+                    break;
+                case "e":
+                    hero.shoot();
                     break;
                 default:
                     System.out.println("Неизвестная команда");
